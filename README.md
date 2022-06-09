@@ -1,0 +1,2 @@
+# Stock_Journal_App
+This repository is the code base for a web app that I created using Flask web framework, RESTful API and ReactJS to Journal thoughts, sentiments, Buy/Sell rating for any stock in the stock market. The app alows the user to register, login and create personal watchlists of stocks. The user can access the historic data of stock and journal their thoughts and research at any particular point in time of the stock price history. 
