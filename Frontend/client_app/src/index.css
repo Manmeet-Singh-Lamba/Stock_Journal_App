@@ -1,0 +1,150 @@
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  max-width: 1900px;
+  margin: 15px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 2px solid steelblue;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: rgba(28, 130, 248, 0.285);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.80);
+}
+
+.btn-block {
+  display: block;
+  width: 30%;
+}
+
+.note {
+  background: #f0dcd9fc;
+  margin: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.note.buy {
+  border-left: 10px solid rgba(8, 172, 8, 0.782);
+  background-color: rgba(121, 199, 121, 0.782);
+}
+
+.note.sell {
+  border-left: 10px solid rgba(197, 34, 5, 0.793);
+  background-color: rgba(197, 139, 129, 0.793);
+}
+
+.note h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-form {
+  margin-bottom: 40px;
+}
+
+.form-control {
+  margin: 20px 0;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 70%;
+  height: 40px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.form-control-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-control-check label {
+  flex: 1;
+}
+
+.form-control-check input {
+  flex: 2;
+  height: 20px;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+th {
+  background-color: rgba(190, 140, 238, 0.716);
+}
+
+table {
+  width: 95%;
+  margin: 2px;
+  padding: 3px;
+  font-family: "Quicksand", sans-serif;
+}
+
+th,
+td {
+  border-bottom: 1px solid rgb(118, 116, 116);
+  text-align: left;
+  padding: 3px;
+  max-width: 600px;
+  word-wrap: break-word;
+}
+
+tr:hover {
+  background-color: rgb(32, 147, 175);
+}
