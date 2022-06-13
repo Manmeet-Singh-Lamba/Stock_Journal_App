@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
+
 import os
 
 
@@ -18,3 +19,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 db = SQLAlchemy(app)
 
 from stock_journal_app import routes
+from flask_migrate import Migrate
+
+migrate = Migrate(app, db)

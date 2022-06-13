@@ -33,19 +33,28 @@ const AddNote = ({ onAdd })=> {
                 <label>
                     Stock Price
                 </label>
-                <input type='number' placeholder='Add price' value={stock_price} onChange={(e) => setStock_price(e.target.value)}/>
+                <input type='number' 
+                        placeholder='Add price' 
+                        value={stock_price} 
+                        onChange={(e) => setStock_price(e.target.value)}/>
             </div>
             <div className='form-control'>
                 <label>
                     Stock symbol
                 </label>
-                <input type='text' placeholder='Add symbol' value={stock_symbol} onChange={(e) => setStock_symbol(e.target.value)}/>
+                <input type='text' 
+                        placeholder='Add symbol' 
+                        value={stock_symbol} 
+                        onChange={(e) => setStock_symbol(e.target.value)}/>
             </div>
             <div className='form-control'>
                 <label>
                     Price Date
                 </label>
-                <input type='date' placeholder='Add Date' value={price_date} onChange={(e) => setPrice_date(e.target.value)}/>
+                <input type='date' 
+                        placeholder='Add Date' 
+                        value={price_date} 
+                        onChange={(e) => setPrice_date(e.target.value)}/>
             </div>
             <div className='form-control'>
                 <label>
