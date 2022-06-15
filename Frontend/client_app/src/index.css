@@ -32,6 +32,9 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  background: rgb(70, 133, 147);
+  border-radius: 10px;
+  padding: 1%;
 }
 
 .btn {

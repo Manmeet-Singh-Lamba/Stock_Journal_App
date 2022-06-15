@@ -31,7 +31,7 @@ def token_required(f):
     return decorated
 
 
-# @app.route("/user", methods=['GET'])
+# @app.route("/users", methods=['GET'])
 # @token_required
 # def get_all_users(current_user):
 #     users = User.query.all()
@@ -104,6 +104,7 @@ def register():
 def home():
     return {"message" :"This is the home page, here is your watchlist, and search bar for searching stocks"}
 
+
 @app.route("/login")
 def login():
     auth = request.authorization
@@ -136,16 +137,21 @@ def about():
 def symbol():
     return "<h1>This is thepage where ticker symbol's price chart is dispalyed along with the Journal notes</h1>"
 
-@app.route("/notes/<user_id>", methods = ['GET'])
-def get_notes(user_id):
+
+# fetch all notes
+@app.route("/notes", methods = ['GET'])
+@token_required
+def get_notes(current_user):
+    user_id = current_user.id
     result = Note.query.filter_by(user_id=user_id)
     result = notes_schema.dump(result)
-
     return jsonify(result)
+
 
 # Add single note
 @app.route("/addnote", methods = ['POST'])
-def add_note():
+@token_required
+def add_note(current_user):
     try:
         price_date = datetime.strptime(request.json['price_date'], '%b %d %Y %I:%M%p')
     except:
@@ -154,8 +160,8 @@ def add_note():
     stock_symbol = request.json['stock_symbol']
     reason = request.json['reason']
     rating = request.json['rating']
-    #user_id = request.json['user_id']
-    user_id = 1
+    user_id = current_user.id
+    
     try:
         date_posted = datetime.strptime(request.json['date_posted'], '%b %d %Y %I:%M%p')
     except:
@@ -164,32 +170,40 @@ def add_note():
     new_note = Note(stock_price, stock_symbol, price_date, rating, reason, user_id, date_posted)
     db.session.add(new_note)
     db.session.commit()
-
     return note_schema.jsonify(new_note)
 
 
 # Delete single note
 @app.route('/deletenote/<note_id>', methods =['DELETE'])
-def delete_single_note(note_id):
+@token_required
+def delete_single_note(current_user, note_id):
     result = Note.query.get(note_id)
-    db.session.delete(result)
-    db.session.commit()
-    return note_schema.jsonify(result) 
+    if result.user_id is current_user.id:
+        db.session.delete(result)
+        db.session.commit()
+        return note_schema.jsonify(result) 
 
-@app.route("/get_watchlist/<user_id>", methods = ['GET'])
-def get_watchlist(user_id):
+
+@app.route("/get_watchlist", methods = ['GET'])
+@token_required
+def get_watchlist(current_user):
+    user_id = current_user.id
     result = Watchlist_item.query.filter_by(user_id = user_id)
     result = items_schema.dump(result)
-
     return jsonify(result)
 
+
 @app.route("/addsymbol", methods = ['POST'])
-def add_to_watchlist():
+@token_required
+def add_to_watchlist(current_user):
+    print(current_user)
+    user_id = current_user.id
     item_name = request.json['item_name']
-    user_id = request.json['user_id']
+
+    if Watchlist_item.query.filter_by(item_name= item_name).first():
+        return jsonify({"message": "symbol already exists in the watchlist"})
 
     new_item = Watchlist_item(item_name = item_name, user_id= user_id)
     db.session.add(new_item)
     db.session.commit()
-
     return item_schema.jsonify(new_item)

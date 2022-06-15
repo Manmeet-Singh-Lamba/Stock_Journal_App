@@ -60,10 +60,11 @@ const AddNote = ({ onAdd })=> {
                 <label>
                     Rating
                 </label>
-                <input type='text' 
-                        placeholder='Add Rating(Buy or Sell or Wait)' 
-                        value={rating} 
-                        onChange={(e) => setRating(e.target.value)}/>
+                <select placeholder='Add Rating(Buy or Sell or Wait)' value={rating} onChange={(e) => setRating(e.target.value)} >
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>
+                    <option value="Wait">Wait</option>
+                </select>
             </div>
             <div className='form-control'>
                 <label>

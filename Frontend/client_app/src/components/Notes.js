@@ -7,7 +7,7 @@ const Notes = ({ notes, onDelete })=> {
         {notes.map((note) => (
             <Note key={note.id} note = {note} onDelete ={onDelete}/>
             ))}
-         </>
+        </>
       
   );
 }
