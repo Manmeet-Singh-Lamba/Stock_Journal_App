@@ -91,7 +91,7 @@ def delete_user(current_user, public_id):
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Acoount created for {form.username.data} successfully!', 'success')
+        flash(f'Acount created for {form.username.data} successfully!', 'success')
         return redirect(url_for('home'))
     hashed_pw = bcrypt.generate_password_hash("password")
     bcrypt.check_password_hash(hashed_pw, "password")
@@ -133,9 +133,14 @@ def login():
 def about():
     return render_template('about.html', title = "About")
 
-@app.route("/tickerSymbol")
-def symbol():
-    return "<h1>This is thepage where ticker symbol's price chart is dispalyed along with the Journal notes</h1>"
+# fetch notes only for the requested ticker symbol
+@app.route("/notes/<ticker_symbol>")
+@token_required
+def symbol(current_user, ticker_symbol):
+    user_id = current_user.id
+    result = Note.query.filter_by(user_id=user_id, stock_symbol=ticker_symbol).all()
+    result = notes_schema.dump(result)
+    return jsonify(result)
 
 
 # fetch all notes
@@ -207,3 +212,13 @@ def add_to_watchlist(current_user):
     db.session.add(new_item)
     db.session.commit()
     return item_schema.jsonify(new_item)
+
+# Delete single watchlist item
+@app.route('/deleteitem/<item_id>', methods =['DELETE'])
+@token_required
+def delete_single_item(current_user, item_id):
+    result = Watchlist_item.query.get(item_id)
+    if result.user_id is current_user.id:
+        db.session.delete(result)
+        db.session.commit()
+        return item_schema.jsonify(result) 

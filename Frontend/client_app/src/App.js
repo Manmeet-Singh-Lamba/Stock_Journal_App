@@ -1,11 +1,9 @@
 import Header from './components/Header'
-import Button from './components/Button'
-import Notes from './components/Notes'
-import AddNote from './components/AddNote'
 import Footer from './components/Footer'
 import About from './components/About'
 import Home from './components/Home'
 import Logout from './components/Logout'
+import NoteDisplay from './components/NoteDisplay'
 import ErrorPage from './components/ErrorPage'
 //import Login from './components/Login'
 import React, { useState, useEffect} from 'react'
@@ -16,85 +14,9 @@ import './index.css'
 
 
 const App = ()=> {
-  const ticker_symbol = 'AMZN'
   const [user_token, setUser_token] = useState(sessionStorage.getItem("user_token"))
-  const [notes, setNotes] = useState([])
-
-  useEffect(() => {
-    const getNotes = async () => {
-      const notesFromServer = await fetchNotes()
-      setNotes(notesFromServer)
-    }
-
-    getNotes()
-  }, []) //dependency array
-  
-  //fetch Notes
-  const fetchNotes = async() => {
-    const response = await fetch(`http://localhost:5000/notes`, 
-    { method: 'GET',
-      headers: {'Content-type': 'application/json', "x-access-token":user_token}
-    })
-    const data = await response.json()
-    
-    return data
-  }
-
-  const [showAddNote, setshowAddNote] = useState(false)
-
-  //Add Note
-  const addNote = async (note) => {
-    console.log(note)
-    const response = await fetch(`http://localhost:5000/addnote`, 
-    { method: 'POST',
-      headers: {'Content-type': 'application/json', "x-access-token": user_token},
-      body: JSON.stringify(note)
-    })
-
-    const data = await response.json()
-    setNotes([...notes, data])
-    // const id = Math.floor(Math.random()*10000)+1
-    // const newNote = {id, ...note}
-    // setNotes([...notes, newNote])
-  }
-
-  //Delete Note
-  const deleteNote = async (id) => {
-    await fetch(`http://localhost:5000/deletenote/${id}`, 
-    { method: 'DELETE', 
-      headers: {"x-access-token": user_token}
-    })
-    setNotes(notes.filter((note) => note.id !== id))
-  }
 
   //const onAddClick= () => setshowAddNote(!showAddNote)
-
-  const Display = ()=> {
-    return (
-    <main>
-        <h3>
-          <Header title={ticker_symbol} />
-        </h3>
-
-        <div id="my_dataviz"></div>
-
-        <div >
-        <Button color={showAddNote ? 'grey': 'teal'} 
-                text={showAddNote ? 'Close': 'Add Note'} 
-                onClick={() => setshowAddNote(!showAddNote)} 
-                />
-
-        { showAddNote &&  <AddNote onAdd={addNote}/>
-        }
-        </div>
-
-        { notes.length> 0 ? (<Notes notes = {notes} onDelete = {deleteNote}/>) : ('No notes to show') 
-        }
-
-    </main>
-
-    );
-  }
 
   const Login = ()=> {
     const [username, setUsername] = useState('')
@@ -113,11 +35,6 @@ const App = ()=> {
         redirect: 'follow'
       };
 
-      // const response = await fetch("http://127.0.0.1:5000/login", requestOptions)
-      // const data = await response.json()
-      // setUser_token(data["token"])
-      // console.log(data["token"])
-      // console.log(user_token)
 
       fetch("http://127.0.0.1:5000/login", requestOptions)
       .then(response => response.json())
@@ -170,7 +87,6 @@ const App = ()=> {
   }
   
 
-  
 
   return (
     <Router>
@@ -178,8 +94,8 @@ const App = ()=> {
       <div className="container">
         <nav>
           <Link to="/home"> Home </Link>
-          <Link to="/"> Notes </Link>
-          {user_token && user_token!== '' ? <a href="/Logout" > Logout </a> : <a href="/Login" > Login </a>}
+          <Link to="/notes"> Notes </Link>
+          {user_token && user_token!== '' ? <a href="/Logout" onClick={() => {setUser_token(sessionStorage.removeItem("user_token"))}}> Logout </a> :<></> }
         </nav>
         
         
@@ -191,16 +107,17 @@ const App = ()=> {
         
 
         <Routes>
+          <Route path = '/' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login />} />
           <Route path = '/home' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login />} />
           <Route path ='/login' element = {<Login setUser_token = {setUser_token}/>} />
-          <Route path = '/' element = {user_token && user_token!== ''? <Display />: <Login />}/>
+          <Route path = '/notes' element = {user_token && user_token!== ''? <NoteDisplay user_token = {user_token}/>: <Login />}/>
           <Route path = '/about' element = {user_token && user_token!== ''?  <About />: <Login />} />
-          <Route path = '/Logout' element = {<Logout />} />
+          <Route path = '/Logout' element = {<Logout setUser_token = {setUser_token} />} />
           <Route path = '*' element = {<ErrorPage />} />
         </Routes>
 
         <Footer />
-
+        
       </div>
     </Router>
   );
