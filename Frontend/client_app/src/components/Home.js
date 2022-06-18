@@ -1,9 +1,11 @@
 import React, { useState, useEffect} from 'react'
 import WatchlistItem from './WatchlistItem'
+import {useNavigate} from 'react-router-dom'
 
 
 const Home = ({ user_token })=> {
     const [items, setItems] = useState([])
+    const navigate = useNavigate() 
 
     useEffect(() => {
         const getItems = async () => {
@@ -21,6 +23,11 @@ const Home = ({ user_token })=> {
       headers: {'Content-type': 'application/json', "x-access-token":user_token}
     })
     const data = await response.json()
+
+    if(response.status === 401){
+      sessionStorage.removeItem("user_token")
+      navigate("/login") 
+    }
         
     return data
     }
@@ -36,8 +43,9 @@ const Home = ({ user_token })=> {
 
     //When visting the watchlist item
     const onClick = (name) =>{
+      navigate(`/notes/${name}`)
       console.log(name)
-      //<Notes />
+      
     }
 
   return (

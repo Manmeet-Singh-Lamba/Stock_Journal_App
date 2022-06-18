@@ -3,13 +3,14 @@ import Header from './Header'
 import Button from './Button'
 import Notes from './Notes'
 import AddNote from './AddNote'
+import {useNavigate, useParams} from 'react-router-dom'
 
 
 const NoteDisplay = ({user_token}) => {
-    const ticker_symbol = 'AMZN'
+    const { ticker_symbol } = useParams()
     const [notes, setNotes] = useState([])
     const [showAddNote, setshowAddNote] = useState(false)
-    
+    const navigate = useNavigate() 
 
     useEffect(() => {
         const getNotes = async () => {
@@ -22,14 +23,16 @@ const NoteDisplay = ({user_token}) => {
 
     //fetch Notes
     const fetchNotes = async() => {
-    const response = await fetch(`http://localhost:5000/notes`, 
+    const response = await fetch(`http://localhost:5000/notes/${ticker_symbol}`, 
     { method: 'GET',
       headers: {'Content-type': 'application/json', "x-access-token":user_token}
     })
-    const data = await response.json()
 
-    if (response.status === 401){
+    if(response.status === 401){
+      sessionStorage.removeItem("user_token")
+      navigate("/login") 
     }
+    const data = await response.json()
 
     return data
 }
@@ -44,6 +47,11 @@ const NoteDisplay = ({user_token}) => {
       body: JSON.stringify(note)
     })
 
+    if(response.status === 401){
+      sessionStorage.removeItem("user_token")
+      navigate("/login") 
+    }
+    
     const data = await response.json()
     setNotes([...notes, data])
   }

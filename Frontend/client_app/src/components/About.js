@@ -1,12 +1,17 @@
-import {Link} from 'react-router-dom'
-
+import {useNavigate} from 'react-router-dom'
+import Button from './Button'
 
 const About = ()=> {
-
+    const navigate = useNavigate() 
+    
+    const onClick = () =>{
+        navigate(-1)
+    }
     return (
         <div>
             <h4> Version 1.0.0</h4>
-            <Link to="/notes"> Go back </Link>
+            <Button text = {"Go back"} color={"black"} onClick = {onClick}/>
+            
             
         </div>
     );
@@ -14,4 +19,6 @@ const About = ()=> {
   
   export default About;
 
-  // <button onClick = {() =>toNavigate(-1)}> Go back </button>
+
+//<Link to="/notes"> Go back </Link>
+//<button onClick = {() =>toNavigate(-1)}> Go back </button>

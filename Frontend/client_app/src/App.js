@@ -5,9 +5,9 @@ import Home from './components/Home'
 import Logout from './components/Logout'
 import NoteDisplay from './components/NoteDisplay'
 import ErrorPage from './components/ErrorPage'
-//import Login from './components/Login'
+import Login from './components/Login'
 import React, { useState, useEffect} from 'react'
-import {BrowserRouter as Router, Route, Routes, Link, useNavigate} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
 
 
 import './index.css'
@@ -15,89 +15,31 @@ import './index.css'
 
 const App = ()=> {
   const [user_token, setUser_token] = useState(sessionStorage.getItem("user_token"))
+  
 
   //const onAddClick= () => setshowAddNote(!showAddNote)
 
-  const Login = ()=> {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const navigateAfterLogin = useNavigate() 
-
-    const goLogin = async (username, password) => {
-      const cred = `${username}:${password}`
-      const info = btoa(cred)
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Basic ${info}`);
-
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
+  useEffect(()=>{
+    console.log(`App useEffect executed ${user_token}`)
+  },[user_token])
 
 
-      fetch("http://127.0.0.1:5000/login", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        setUser_token(result["token"])
-        sessionStorage.setItem("user_token", result["token"])
-      })
-      .catch(error => console.log('error', error));
-      navigateAfterLogin("/home")
-    }
-
-    const onSubmit = (e) => {
-      e.preventDefault()
-
-      if (!username || !password){
-          alert('Please add all info')
-          return
-      }
-
-      goLogin(username, password)
-
-      setUsername('')
-      setPassword('')    
+  const catchUser_token =  (token) => {
+    setUser_token(token)
+    console.log(`App rendered ${sessionStorage.getItem("user_token")}`)
   }
-    return (
-      <form onSubmit={onSubmit}>
-        <div className='form-control'>
-          <label>
-              Username
-          </label>
-          <input type='text' 
-                  placeholder='Enter your username' 
-                  value={username} 
-                  onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className='form-control'>
-          <label>
-              Password
-          </label>
-          <input type='password' 
-                  placeholder='Enter the password' 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <input type='submit' value='Login' className= 'btn btn-block' />
-      </form>
-    );
-  }
-  
+   
 
-
+   
   return (
     <Router>
       <div id="utoken">{user_token}</div>
+      
       <div className="container">
         <nav>
           <Link to="/home"> Home </Link>
-          <Link to="/notes"> Notes </Link>
           {user_token && user_token!== '' ? <a href="/Logout" onClick={() => {setUser_token(sessionStorage.removeItem("user_token"))}}> Logout </a> :<></> }
         </nav>
-        
         
         <header className="App-header">
           <h1>
@@ -105,14 +47,13 @@ const App = ()=> {
           </h1>
         </header>
         
-
         <Routes>
-          <Route path = '/' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login />} />
-          <Route path = '/home' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login />} />
-          <Route path ='/login' element = {<Login setUser_token = {setUser_token}/>} />
-          <Route path = '/notes' element = {user_token && user_token!== ''? <NoteDisplay user_token = {user_token}/>: <Login />}/>
-          <Route path = '/about' element = {user_token && user_token!== ''?  <About />: <Login />} />
-          <Route path = '/Logout' element = {<Logout setUser_token = {setUser_token} />} />
+          <Route path = '/' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login catchUser_token = {catchUser_token}/>} />
+          <Route path = '/home' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login catchUser_token = {catchUser_token}/>} />
+          <Route path ='/Login' element = {<Login catchUser_token = {catchUser_token} />} />
+          <Route path = '/notes/:ticker_symbol' element = {user_token && user_token!== ''? <NoteDisplay user_token = {user_token}/>: <Login catchUser_token = {catchUser_token}/>}/>
+          <Route path = '/about' element = {user_token && user_token!== ''?  <About />: <Login catchUser_token = {catchUser_token}/>} />
+          <Route path = '/Logout' element = {<Logout  />} />
           <Route path = '*' element = {<ErrorPage />} />
         </Routes>
 
@@ -125,7 +66,7 @@ const App = ()=> {
 
 export default App;
 
-
+//setUser_token = {(token)=>setUser_token(token)}
 
 // testdata = [
 //   {
