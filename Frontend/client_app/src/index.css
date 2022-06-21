@@ -151,3 +151,11 @@ td {
 tr:hover {
   background-color: rgb(32, 147, 175);
 }
+
+.chart {
+  display: block;
+  align-items: center;
+  border: 2px solid steelblue;
+  padding: 25px;
+  border-radius: 10px;
+}

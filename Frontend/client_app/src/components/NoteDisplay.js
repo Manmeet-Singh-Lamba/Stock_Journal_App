@@ -1,26 +1,49 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import Button from './Button'
 import Notes from './Notes'
 import AddNote from './AddNote'
+import StockChart from './StockChart'
 import {useNavigate, useParams} from 'react-router-dom'
 
 
+
+
 const NoteDisplay = ({user_token}) => {
-    const { ticker_symbol } = useParams()
-    const [notes, setNotes] = useState([])
-    const [showAddNote, setshowAddNote] = useState(false)
-    const navigate = useNavigate() 
+  
 
-    useEffect(() => {
-        const getNotes = async () => {
-          const notesFromServer = await fetchNotes()
-          setNotes(notesFromServer)
-        }
+  const dataset = [
+    {time: '24-Apr-07', value: 193.24},
+    {time: '25-Apr-07', value: 155.35 },
+    {time: '26-Apr-07', value: 178.84 },
+    {time: '27-Apr-07', value: 139.92 },
+    {time: '30-Apr-07', value: 99.80 },
+    {time: '1-May-07', value: 199.47},
+    {time: '24-Apr-07', value: 193.24},
+    {time: '25-Apr-07', value: 155.35 },
+    {time: '26-Apr-07', value: 178.84 },
+    {time: '27-Apr-07', value: 139.92 },
+    {time: '30-Apr-07', value: 309.80 },
+    {time: '1-May-07', value: 209.47}
+  ]
+
+  const [data] = useState(dataset.map(data => data['value']))
+  const {ticker_symbol} = useParams()
+  const [notes, setNotes] = useState([])
+  const [showAddNote, setshowAddNote] = useState(false)
+  const navigate = useNavigate() 
+  
+
+  useEffect(() => {
+      const getNotes = async () => {
+        const notesFromServer = await fetchNotes()
+        setNotes(notesFromServer)
+      }
     
-        getNotes()
-      }, []) //dependency array
+      getNotes()
+    }, []) //dependency array
 
+    
     //fetch Notes
     const fetchNotes = async() => {
     const response = await fetch(`http://localhost:5000/notes/${ticker_symbol}`, 
@@ -35,7 +58,7 @@ const NoteDisplay = ({user_token}) => {
     const data = await response.json()
 
     return data
-}
+  }
 
 
     //Add Note
@@ -71,7 +94,11 @@ const NoteDisplay = ({user_token}) => {
           <Header title={ticker_symbol} />
         </h3>
 
-        <div id="my_dataviz"></div>
+        <div className = "chart">
+          <StockChart data = {data} />
+        </div>
+
+        <br/>
 
         <div >
         <Button color={showAddNote ? 'grey': 'teal'} 
