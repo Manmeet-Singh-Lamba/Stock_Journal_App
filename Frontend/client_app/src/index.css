@@ -14,6 +14,7 @@ code {
 
 body {
   font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(90deg, #fee14063 0%, #bd184a64 100%);
 }
 
 .container {
@@ -65,7 +66,7 @@ body {
 }
 
 .note {
-  background: #f0dcd9fc;
+  background: #f1e2e0fc;
   margin: 15px;
   padding: 10px 20px;
   cursor: pointer;
@@ -73,12 +74,12 @@ body {
 }
 
 .note.buy {
-  border-left: 10px solid rgba(8, 172, 8, 0.782);
+  border-left: 10px solid rgba(8, 172, 8, 0.915);
   background-color: rgba(121, 199, 121, 0.782);
 }
 
 .note.sell {
-  border-left: 10px solid rgba(197, 34, 5, 0.793);
+  border-left: 10px solid rgba(197, 34, 5, 0.893);
   background-color: rgba(197, 139, 129, 0.793);
 }
 
@@ -158,4 +159,13 @@ tr:hover {
   border: 2px solid steelblue;
   padding: 25px;
   border-radius: 10px;
+}
+
+.search {
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
 }

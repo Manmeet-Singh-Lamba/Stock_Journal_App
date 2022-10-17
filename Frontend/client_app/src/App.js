@@ -21,7 +21,7 @@ const App = ()=> {
 
   useEffect(()=>{
     console.log(`App useEffect executed ${user_token}`)
-  },[user_token])
+  }, [user_token])
 
 
   const catchUser_token =  (token) => {

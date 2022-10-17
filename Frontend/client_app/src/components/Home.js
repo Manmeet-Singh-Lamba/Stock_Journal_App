@@ -1,6 +1,8 @@
 import React, { useState, useEffect} from 'react'
 import WatchlistItem from './WatchlistItem'
 import {useNavigate} from 'react-router-dom'
+import SearchBar from './SearchBar'
+
 
 
 const Home = ({ user_token })=> {
@@ -52,8 +54,10 @@ const Home = ({ user_token })=> {
     <div>
         <h3> Home </h3>
         <br/>
-        <h4> search for ticker symbol here </h4>
-        <input type="text" placeholder="Search.." ></input>
+
+        <div classname='App'>
+          <SearchBar user_token={user_token}/>
+        </div>
 
         {items.map((item) => (
             <WatchlistItem key={item.id} item = {item} onDelete = {deleteItem} onClick = {onClick}/>

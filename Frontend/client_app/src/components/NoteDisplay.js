@@ -95,7 +95,7 @@ const NoteDisplay = ({user_token}) => {
         </h3>
 
         <div className = "chart">
-          <StockChart data = {data} />
+          <StockChart data = {data} ticker_symbol = {ticker_symbol}  />
         </div>
 
         <br/>
