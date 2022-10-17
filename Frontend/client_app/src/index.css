@@ -1,10 +1,9 @@
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -13,7 +12,7 @@ code {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-image: linear-gradient(90deg, #fee14063 0%, #bd184a64 100%);
 }
 
@@ -57,7 +56,7 @@ body {
 }
 
 .btn:active {
-  transform: scale(0.80);
+  transform: scale(0.8);
 }
 
 .btn-block {

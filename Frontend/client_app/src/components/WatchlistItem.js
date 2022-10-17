@@ -1,15 +1,16 @@
-import React from 'react'
-import { FaTimes } from 'react-icons/fa'
+import React from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
-const WatchlistItem = ({item, onDelete, onClick}) => {
+const WatchlistItem = ({ item, onDelete, onClick }) => {
   return (
-    <div className= 'note' onClick={() => onClick(item.item_name)}>
-          <h3>  {item.item_name} 
-                <FaTimes style={{color:'red', cursor: 'pointer' }} 
-                onClick = {() => onDelete(item.id)}/>
-          </h3>
+    <div className="note">
+      <h3 onClick={() => onClick(item.item_name)}> {item.item_name}</h3>
+      <FaTrashAlt
+        style={{ color: "red", cursor: "default", display: "flex" }}
+        onClick={() => onDelete(item.id)}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default WatchlistItem
+export default WatchlistItem;

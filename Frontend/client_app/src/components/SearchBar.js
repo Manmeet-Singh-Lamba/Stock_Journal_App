@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // to search for a stock ticker symbol
 const SearchBar = ({ user_token }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchResult, setSearchResult] = useState(["Default"]);
+  const [searchResult, setSearchResult] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,9 +27,7 @@ const SearchBar = ({ user_token }) => {
     // navigate("/login")
     // }
     if (symbol === "") {
-      setSearchResult([
-        { "1. symbol": "", "2. name": "", "3. type": "", "4. region": "" },
-      ]);
+      setSearchResult([]);
     }
 
     const response = await fetch(
@@ -80,21 +78,24 @@ const SearchBar = ({ user_token }) => {
   };
 
   const AddItem = async (item_name) => {
-    console.log(item_name)
-    const response = await fetch(`http://localhost:5000/addsymbol`, 
-    { method: 'POST',
-      headers: {'Content-type': 'application/json', "x-access-token": user_token},
-      body: JSON.stringify({item_name})
-    })
+    console.log(item_name);
+    const response = await fetch(`http://localhost:5000/addsymbol`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "x-access-token": user_token,
+      },
+      body: JSON.stringify({ item_name }),
+    });
 
-    if(response.status === 401){
-      sessionStorage.removeItem("user_token")
-      navigate("/login") 
+    if (response.status === 401) {
+      sessionStorage.removeItem("user_token");
+      navigate("/login");
     }
-    
-    const data = await response.json()
+
+    const data = await response.json();
     //setNotes([...symbols, data])
-  }
+  };
 
   return (
     <div>
@@ -105,24 +106,24 @@ const SearchBar = ({ user_token }) => {
         onChange={handleChange}
         value={searchInput}
       />
-      
 
-      {searchResult.map((result) => (
-        <tr > 
-          <td>
-            <b>{result["1. symbol"]}</b>
-          </td>
-          <td>{result["2. name"]}</td>
-          <td>{result["3. type"]}</td>
-          <td>{result["4. region"]}</td>
-        </tr>
-      ))}
+      {searchResult.length > 0
+        ? searchResult.map((result) => (
+            <tr>
+              <td>
+                <b>{result["1. symbol"]}</b>
+              </td>
+              <td>{result["2. name"]}</td>
+              <td>{result["3. type"]}</td>
+              <td>{result["4. region"]}</td>
+            </tr>
+          ))
+        : ""}
       <br></br>
     </div>
   );
 };
 
 export default SearchBar;
-
 
 //OnClick ={AddItem(result["1. symbol"])}
