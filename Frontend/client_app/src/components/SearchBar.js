@@ -11,7 +11,9 @@ const SearchBar = ({ user_token }) => {
     const getresults = async () => {
       await fetchSearchResult(searchInput);
     };
+    
     getresults();
+      
   }, [searchInput]); //dependency array
 
   //fetch search result
@@ -29,7 +31,7 @@ const SearchBar = ({ user_token }) => {
     if (symbol === "") {
       setSearchResult([]);
     }
-
+    else {
     const response = await fetch(
       `http://localhost:5000/searchsymbol/${symbol}`,
       {
@@ -58,6 +60,7 @@ const SearchBar = ({ user_token }) => {
           ]);
         }
       });
+    }
     //.catch(response.status === 404)
 
     // if(response.status === 404){
@@ -106,9 +109,10 @@ const SearchBar = ({ user_token }) => {
         onChange={handleChange}
         value={searchInput}
       />
-
+      
       {searchResult.length > 0
         ? searchResult.map((result) => (
+          <table>
             <tr>
               <td>
                 <b>{result["1. symbol"]}</b>
@@ -117,8 +121,10 @@ const SearchBar = ({ user_token }) => {
               <td>{result["3. type"]}</td>
               <td>{result["4. region"]}</td>
             </tr>
+            </table>
           ))
         : ""}
+        
       <br></br>
     </div>
   );

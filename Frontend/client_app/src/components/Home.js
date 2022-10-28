@@ -55,7 +55,7 @@ const Home = ({ user_token }) => {
       <h3> Home </h3>
       <br />
 
-      <div classname="App">
+      <div className="App">
         <SearchBar user_token={user_token} />
       </div>
 

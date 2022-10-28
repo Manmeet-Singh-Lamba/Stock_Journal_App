@@ -6,6 +6,7 @@ import AddNote from "./AddNote";
 import StockChart from "./StockChart";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 const NoteDisplay = ({ user_token }) => {
   const dataset = [
     { time: "24-Apr-07", value: 193.24 },
@@ -27,6 +28,7 @@ const NoteDisplay = ({ user_token }) => {
   const [notes, setNotes] = useState([]);
   const [showAddNote, setshowAddNote] = useState(false);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const getNotes = async () => {

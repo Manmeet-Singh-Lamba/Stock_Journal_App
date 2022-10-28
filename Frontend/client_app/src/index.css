@@ -72,6 +72,12 @@ body {
   border-radius: 10px;
 }
 
+.note:hover {
+  box-shadow: 3px 3px 5px rgb(61, 61, 61); 
+  margin-top: -1px;
+  transition: 10ms linear;
+}
+
 .note.buy {
   border-left: 10px solid rgba(8, 172, 8, 0.915);
   background-color: rgba(121, 199, 121, 0.782);
@@ -156,8 +162,9 @@ tr:hover {
   display: block;
   align-items: center;
   border: 2px solid steelblue;
-  padding: 25px;
+  padding: 3%;
   border-radius: 10px;
+  background-color: rgba(60, 94, 102, 0.625);
 }
 
 .search {

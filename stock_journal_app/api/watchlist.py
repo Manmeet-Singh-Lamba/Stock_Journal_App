@@ -44,7 +44,7 @@ def delete_single_item(current_user, item_id):
 
 
 # search stock symbol from third part API
-@app.route("/searchsymbol/<symbol>", methods = ['GET','OPTIONS'])
+@app.route("/searchsymbol/<symbol>", methods = ['GET'])
 def search_symbol(symbol):
     
     API_key = environ.get('API_KEY')
