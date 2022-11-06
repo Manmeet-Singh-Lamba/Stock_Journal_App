@@ -1,81 +1,67 @@
-import { useState } from "react";
+import { useRef, useEffect } from "react";
 
-const AddNote = ({ onAdd }) => {
-  const [stock_price, setStock_price] = useState("");
-  const [stock_symbol, setStock_symbol] = useState("");
-  const [price_date, setPrice_date] = useState("");
-  const [rating, setRating] = useState("");
-  const [reason, setReason] = useState("");
-  const [date_posted, setCreated_on] = useState("");
+const AddNote = ({ onAdd, symbol }) => {
+  const stock_price = useRef("");
+  const stock_symbol = useRef(symbol);
+  const price_date = useRef("");
+  const rating = useRef("");
+  const reason = useRef("");
+  const date_posted = useRef("");
+  const renderCount = useRef(0);
+
+  useEffect(() => {
+    stock_symbol.current.value = symbol;
+    renderCount.current = renderCount.current + 1;
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     if (
-      !stock_price ||
-      !stock_symbol ||
-      !price_date ||
-      !reason ||
-      !rating ||
-      !date_posted
+      !stock_price.current.value ||
+      !stock_symbol.current.value ||
+      !price_date.current.value ||
+      !reason.current.value ||
+      !rating.current.value ||
+      !date_posted.current.value
     ) {
       alert("Please add all info");
       return;
     }
 
     onAdd({
-      stock_price,
-      stock_symbol,
-      price_date,
-      rating,
-      reason,
-      date_posted,
+      stock_price: stock_price.current.value,
+      stock_symbol: symbol,
+      price_date: price_date.current.value,
+      rating: rating.current.value,
+      reason: reason.current.value,
+      date_posted: date_posted.current.value,
     });
 
-    setStock_price("");
-    setStock_symbol("");
-    setPrice_date("");
-    setRating("");
-    setReason("");
-    setCreated_on("");
   };
 
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label>Stock Price</label>
-        <input
-          type="number"
-          placeholder="Add price"
-          value={stock_price}
-          onChange={(e) => setStock_price(e.target.value)}
-        />
+        <input ref={stock_price} type="number" placeholder="Add price" />
       </div>
       <div className="form-control">
         <label>Stock symbol</label>
         <input
+          ref={stock_symbol}
           type="text"
           placeholder="Add symbol"
-          value={stock_symbol}
-          onChange={(e) => setStock_symbol(e.target.value)}
+          readOnly={true}
         />
       </div>
       <div className="form-control">
         <label>Price Date</label>
-        <input
-          type="date"
-          placeholder="Add Date"
-          value={price_date}
-          onChange={(e) => setPrice_date(e.target.value)}
-        />
+        <input ref={price_date} type="date" placeholder="Add Date" />
       </div>
       <div className="form-control">
         <label>Rating</label>
-        <select
-          placeholder="Add Rating(Buy or Sell or Wait)"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        >
+        <select ref={rating} placeholder="Add Rating(Buy or Sell or Wait)">
           <option value="Buy">Buy</option>
           <option value="Sell">Sell</option>
           <option value="Wait">Wait</option>
@@ -84,23 +70,18 @@ const AddNote = ({ onAdd }) => {
       <div className="form-control">
         <label>Reason</label>
         <input
+          ref={reason}
           type="text"
           placeholder="Add reason for your rating and thoughts about the stock"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
         />
       </div>
       <div className="form-control">
         <label>created on</label>
-        <input
-          type="date"
-          placeholder="Add Task"
-          value={date_posted}
-          onChange={(e) => setCreated_on(e.target.value)}
-        />
+        <input ref={date_posted} type="date" placeholder="Add Task" />
       </div>
 
       <input type="submit" value="Save note" className="btn btn-block" />
+      <div>Rendered {renderCount.current} times</div>
     </form>
   );
 };

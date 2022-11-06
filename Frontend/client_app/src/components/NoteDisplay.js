@@ -113,7 +113,7 @@ const NoteDisplay = ({ user_token }) => {
           onClick={() => setshowAddNote(!showAddNote)}
         />
 
-        {showAddNote && <AddNote onAdd={addNote} />}
+        {showAddNote && <AddNote onAdd={addNote} symbol = {ticker_symbol} />}
       </div>
 
       {notes.length > 0 ? (

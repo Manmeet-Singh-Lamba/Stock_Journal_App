@@ -12,8 +12,7 @@ const Note = ({ note, onDelete }) => {
     >
       <h3>
         {" "}
-        Stock Price:
-        {note.stock_price}
+        Stock Price: {note.stock_price}
         <FaTimes
           style={{ color: "red", cursor: "pointer" }}
           onClick={() => onDelete(note.id)}

@@ -19,9 +19,9 @@ const App = ()=> {
 
   //const onAddClick= () => setshowAddNote(!showAddNote)
 
-  useEffect(()=>{
-    console.log(`App useEffect executed ${user_token}`)
-  }, [user_token])
+  // useEffect(()=>{
+  //   console.log(`App useEffect executed ${user_token}`)
+  // }, [user_token])
 
 
   const catchUser_token =  (token) => {
@@ -33,7 +33,7 @@ const App = ()=> {
    
   return (
     <Router>
-      <div id="utoken">{user_token}</div>
+      {/* <div id="utoken">{user_token}</div> */}
       
       <div className="container">
         <nav>
