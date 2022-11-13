@@ -6,6 +6,8 @@ import Logout from './components/Logout'
 import NoteDisplay from './components/NoteDisplay'
 import ErrorPage from './components/ErrorPage'
 import Login from './components/Login'
+import SignUp from './components/SignUp'
+//import SignUpForm from './components/auth/SignUpForm';
 import React, { useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
 
@@ -16,7 +18,10 @@ import './index.css'
 const App = ()=> {
   const [user_token, setUser_token] = useState(sessionStorage.getItem("user_token"))
   
-
+  window.scrollTo({
+    top: 0,
+    left: 0,
+  });
   //const onAddClick= () => setshowAddNote(!showAddNote)
 
   // useEffect(()=>{
@@ -51,6 +56,7 @@ const App = ()=> {
           <Route path = '/' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login catchUser_token = {catchUser_token}/>} />
           <Route path = '/home' element = {user_token && user_token!== '' ? <Home user_token={user_token} />: <Login catchUser_token = {catchUser_token}/>} />
           <Route path ='/Login' element = {<Login catchUser_token = {catchUser_token} />} />
+          <Route path ='/SignUp' element = {<SignUp />} />
           <Route path = '/notes/:ticker_symbol' element = {user_token && user_token!== ''? <NoteDisplay user_token = {user_token}/>: <Login catchUser_token = {catchUser_token}/>}/>
           <Route path = '/about' element = {user_token && user_token!== ''?  <About />: <Login catchUser_token = {catchUser_token}/>} />
           <Route path = '/Logout' element = {<Logout  />} />

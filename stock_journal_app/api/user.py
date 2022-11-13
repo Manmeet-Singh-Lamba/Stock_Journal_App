@@ -66,22 +66,22 @@ def delete_user(current_user, public_id):
     return jsonify({"message": "User has been deletd"})
 
 
-@app.route("/register", methods = ['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        flash(f'Acount created for {form.username.data} successfully!', 'success')
-        return redirect(url_for('home'))
-    hashed_pw = bcrypt.generate_password_hash("password")
-    bcrypt.check_password_hash(hashed_pw, "password")
-    #return { "username": "username", "password": "password"}
-    return render_template('register.html', title ="Register", form=form)
+# @app.route("/register", methods = ['GET', 'POST'])
+# def register():
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         flash(f'Acount created for {form.username.data} successfully!', 'success')
+#         return redirect(url_for('home'))
+#     hashed_pw = bcrypt.generate_password_hash("password")
+#     bcrypt.check_password_hash(hashed_pw, "password")
+#     #return { "username": "username", "password": "password"}
+#     return render_template('register.html', title ="Register", form=form)
 
 
-@app.route("/")
-@app.route("/home")
-def home():
-    return {"message" :"This is the home page, here is your watchlist, and search bar for searching stocks"}
+# @app.route("/")
+# @app.route("/home")
+# def home():
+#     return {"message" :"This is the home page, here is your watchlist, and search bar for searching stocks"}
 
 
 @app.route("/login")

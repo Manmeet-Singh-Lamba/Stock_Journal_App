@@ -10,8 +10,8 @@ const Login = (props) => {
   const renderCount = useRef(0);
 
   useEffect(() => {
-    renderCount.current = renderCount.current +1;
-  }); 
+    renderCount.current = renderCount.current + 1;
+  });
 
   const goLogin = async (username, password) => {
     const cred = `${username.current.value}:${password.current.value}`;
@@ -47,32 +47,30 @@ const Login = (props) => {
     }
 
     goLogin(username, password);
-
-    //setUsername("");
-    //setPassword("");
   };
 
   return (
     <form onSubmit={onSubmit}>
       <div className="form-control">
         <label>Username</label>
-        <input
-          ref = {username}
-          type="text"
-          placeholder="Enter your username"
-        />
+        <input ref={username} type="text" placeholder="Enter your username" />
       </div>
       <div className="form-control">
         <label>Password</label>
         <input
-          ref = {password}
+          ref={password}
           type="password"
           placeholder="Enter the password"
         />
       </div>
       <input type="submit" value="Login" className="btn btn-block" />
 
-      <div>Rendered  {renderCount.current} times</div>
+      <div>
+        <h2> Don't have an account yet? </h2>
+        Register <a href="/signUp">here</a>
+      </div>
+
+      {/* <div>Rendered {renderCount.current} times</div> */}
     </form>
   );
 };
