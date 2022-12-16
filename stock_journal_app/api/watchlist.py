@@ -21,10 +21,12 @@ def get_watchlist(current_user):
 @token_required
 def add_to_watchlist(current_user):
     user_id = current_user.id
-    item_name = request.json['item_name']
+    item_name = request.json['item_name'].upper()
+    result = Watchlist_item.query.filter_by(user_id = user_id)
 
-    if Watchlist_item.query.filter_by(item_name= item_name).first():
-        return jsonify({"message": "symbol already exists in the watchlist"})
+    for item in result:
+        if item_name == item.item_name:
+            return jsonify({"message": "symbol already exists in the watchlist"})
 
     new_item = Watchlist_item(item_name = item_name, user_id= user_id)
     db.session.add(new_item)

@@ -72,8 +72,8 @@ def delete_single_note(current_user, note_id):
 def get_stock_chart_data(ticker_symbol):
 
     API_key = environ.get('API_KEY')
-    API_call = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker_symbol}&outputsize=full&apikey={API_key}'
-
+    # API_call = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker_symbol}&outputsize=full&apikey={API_key}'
+    API_call = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker_symbol}&outputsize=full&apikey={API_key}'
     data = requests.get(API_call)
     data = data.json()
 

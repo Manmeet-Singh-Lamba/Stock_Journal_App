@@ -61,7 +61,7 @@ body {
 
 .btn-block {
   display: block;
-  width: 30%;
+  width: 20%;
 }
 
 .note {
@@ -73,7 +73,7 @@ body {
 }
 
 .note:hover {
-  box-shadow: 3px 3px 5px rgb(61, 61, 61); 
+  box-shadow: 3px 3px 5px rgb(61, 61, 61);
   margin-top: -1px;
   transition: 10ms linear;
 }
@@ -170,10 +170,32 @@ tr:hover {
 }
 
 .search {
-  width: 100%;
-  margin-bottom: 50px;
+  display: inline;
+  width: 80%;
   padding: 20px;
   border: none;
   border-radius: 10px;
   font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 50px;
+}
+
+.search:focus {
+  outline: none;
+  border-color: #e0e93d;
+  box-shadow: 0 20px 25px #e0670b;
+}
+
+.App {
+  width: 70%;
+  /* white-space: nowrap; */
+  display: flex;
+  background-color: green;
+  margin-bottom: 50px;
+}
+
+.add-ticker-button {
+  height: 5%;
+  display: inline;
+  margin-bottom: 50px;
 }

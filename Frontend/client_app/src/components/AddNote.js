@@ -37,7 +37,6 @@ const AddNote = ({ onAdd, symbol }) => {
       reason: reason.current.value,
       date_posted: date_posted.current.value,
     });
-
   };
 
   return (

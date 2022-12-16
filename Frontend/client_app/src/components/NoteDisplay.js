@@ -6,7 +6,6 @@ import AddNote from "./AddNote";
 import StockChart from "./StockChart";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 const NoteDisplay = ({ user_token }) => {
   const dataset = [
     { time: "24-Apr-07", value: 193.24 },
@@ -28,7 +27,6 @@ const NoteDisplay = ({ user_token }) => {
   const [notes, setNotes] = useState([]);
   const [showAddNote, setshowAddNote] = useState(false);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const getNotes = async () => {
@@ -98,10 +96,11 @@ const NoteDisplay = ({ user_token }) => {
       </h3>
 
       <div className="chart">
-        <StockChart 
-        //style= {{display: "block", justify: "center", border: "10px"}}
-        data={data} 
-        ticker_symbol={ticker_symbol} />
+        <StockChart
+          //style= {{display: "block", justify: "center", border: "10px"}}
+          data={data}
+          ticker_symbol={ticker_symbol}
+        />
       </div>
 
       <br />
@@ -113,7 +112,7 @@ const NoteDisplay = ({ user_token }) => {
           onClick={() => setshowAddNote(!showAddNote)}
         />
 
-        {showAddNote && <AddNote onAdd={addNote} symbol = {ticker_symbol} />}
+        {showAddNote && <AddNote onAdd={addNote} symbol={ticker_symbol} />}
       </div>
 
       {notes.length > 0 ? (
