@@ -31,7 +31,10 @@ const Login = (props) => {
         user_token.current = result["token"];
         sessionStorage.setItem("user_token", result["token"]);
       })
-      .catch((error) => console.log("error:", error));
+      .catch((error) => {
+        alert("username or password is incorrect, try again!");
+        console.log("error:", error);
+      });
 
     console.log(`in login.js ${user_token.current}`);
     props.catchUser_token(user_token.current);

@@ -101,7 +101,7 @@ def login():
         return jsonify({'token' : token})
 #jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
     else:
-        return make_response("Could not verify", 401, {'WWW-Authenticate' : 'Basic realm="Login required!'})
+        return make_response("incorrect password or username", 401, {'WWW-Authenticate' : 'Basic realm="Login required!'})
 
 
 # @app.route("/login")
