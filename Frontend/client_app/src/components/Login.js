@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-  //const [user_token, setUser_token] = useState("");
   const user_token = useRef("");
   const username = useRef("");
   const password = useRef("");
@@ -27,18 +26,17 @@ const Login = (props) => {
 
     fetch("http://127.0.0.1:5000/login", requestOptions)
       .then((response) => response.json())
-      .then((result) => {
-        user_token.current = result["token"];
-        sessionStorage.setItem("user_token", result["token"]);
+      .then((response) => {
+        user_token.current = response["token"];
+        props.catchUser_token(user_token.current);
+        console.log(`in login.js ${user_token.current}`);
+        navigateAfterLogin("/home");
       })
       .catch((error) => {
         alert("username or password is incorrect, try again!");
-        console.log("error:", error);
+        console.log(JSON.stringify(error));
       });
-
-    console.log(`in login.js ${user_token.current}`);
-    props.catchUser_token(user_token.current);
-    navigateAfterLogin("/home");
+    
   };
 
   const onSubmit = async (e) => {
